@@ -88,29 +88,29 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="bg-gray-300">
-        <div className="flex flex-col w-full h-screen p-3 lg:w-1/2">
-          <div id="search" className="p-3 h-1/6 flex flex-col justify-center items-center">
-            <div className="w-full flex flex-row h-10">
+      <main className="flex flex-col items-center bg-blue w-full">
+        <div className="flex flex-col content-center h-screen p-3 lg:w-1/2">
+          <div id="search" className="h-1/6 flex flex-col justify-center items-center">
+            <div className="flex flex-col items-center w-full h-10">
               <input
                 name="search-input"
-                className="w-full h-full border-2 border-gray-200 outline-none bg-transparent p-1 pl-2 pr-2 rounded-full text-center placeholder-gray-400 focus:placeholder-opacity-0 focus:shadow-lg transition-shadow"
+                className="transition-all ease-in-out focus:w-full h-full border-b-2 border-white text-white placeholder-light-blue outline-none bg-transparent p-1 pl-2 pr-2 text-center focus:placeholder-opacity-0"
                 placeholder="start typing..."
                 value={searchTerm}
                 onChange={e => handleSearchTerm(e.target.value)}
                 ref={searchInput}
               />
             </div>
-            <div className="flex flex-row w-1/2 text-center m-2">
-              <div
-                className={`flex flex-col w-full cursor-pointer underline justify-center`}
+            <div className="text-center pt-3">
+              <p
+                className="cursor-pointer underline text-orange"
                 onClick={() => handleClickShowingAll(!showingAll)}
               >
-                { showingAll ? "All" : "Selected"}
-              </div>
+                { showingAll ? "Showing All" : "Showing Selected"}
+              </p>
             </div>
           </div>
-          <div id="results" className="lg:w-1/2 h-5/6 p-3 flex flex-col items-center content-center select-none overflow-y-auto">
+          <div id="results" className="h-5/6 p-3 flex flex-col items-center border-white content-center select-none overflow-y-auto border-2 rounded-lg">
             {Array.from(box, ([key, item]) => {
               if (!searchMatches(item)) {
                 return null;
@@ -122,12 +122,11 @@ export default function Home() {
                     handleClickItem(item)
                     e.preventDefault()
                   }}
-                  className="w-full flex flex-row justify-between bg-gray-200 rounded-sm pl-3 pr-2 p-2 mb-3 hover:shadow-md transition-shadow">
-                  <p className="text-black w-5/6 align">
+                  className="w-full flex flex-row justify-between bg-light-blue pl-3 pr-2 p-2 mb-3 last:mb-0 hover:shadow-md transition-shadow hover:shadow-orange cursor-pointer">
+                  <p className="w-5/6 text-black">
                     {item.name}
                   </p>
-                  <span className="flex flex-col text-black w-1/6 justify-center content-center text-center">
-
+                  <span className=" w-1/6 text-black text-center">
                     {item.count}
                   </span>
                 </div>
