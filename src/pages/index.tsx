@@ -1,14 +1,15 @@
 import Head from 'next/head'
 import { useRef, useCallback, useEffect, useState } from 'react'
 import Data from "../../mock_data.json"
+import ItemList from "../components/ItemList"
 
 class Item {
   count = 0;
-  readonly id: string
+  readonly key: string
   readonly name: string
 
-  constructor(id: string, name: string, count?: number) {
-    this.id = id;
+  constructor(key: string, name: string, count?: number) {
+    this.key = key;
     this.name = name;
     if (count) this.count = count
   }
@@ -39,7 +40,7 @@ export default function Home() {
 
   const handleClickItem = (item: Item) => {
     item.count += 1
-    box.set(item.id, item)
+    box.set(item.key, item)
     setBox(new Map(box))
   }
 
@@ -111,27 +112,11 @@ export default function Home() {
             </div>
           </div>
           <div id="results" className="h-5/6 p-3 flex flex-col items-center border-white content-center select-none overflow-y-auto border-2 rounded-lg">
-            {Array.from(box, ([key, item]) => {
-              if (!searchMatches(item)) {
-                return null;
-              }
-              return (
-                <div
-                  key={key}
-                  onClick={e => {
-                    handleClickItem(item)
-                    e.preventDefault()
-                  }}
-                  className="w-full flex flex-row justify-between bg-light-blue pl-3 pr-2 p-2 mb-3 last:mb-0 hover:shadow-md transition-shadow hover:shadow-orange cursor-pointer">
-                  <p className="w-5/6 text-black">
-                    {item.name}
-                  </p>
-                  <span className=" w-1/6 text-black text-center">
-                    {item.count}
-                  </span>
-                </div>
-              )
-            }).filter(el => el != null)}
+            <ItemList
+              items={Array.from(box.values())}
+              displayItem={searchMatches}
+              onClickItem={(item: Item) => { handleClickItem(item); return true }}
+              />
           </div>
         </div>
       </main>
