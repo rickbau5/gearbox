@@ -1,21 +1,32 @@
 import Head from 'next/head'
 import { useRef, useCallback, useEffect, useState } from 'react'
+import Data from "../../mock_data.json"
 
 class Item {
   count = 0;
+  readonly id: string
   readonly name: string
 
-  constructor(name: string) {
+  constructor(id: string, name: string, count?: number) {
+    this.id = id;
     this.name = name;
+    if (count) this.count = count
   }
 }
 
 export default function Home() {
-
   function newBox() {
     var newBox = new Map();
-    ["12x12 Foo", "6x6 Foo", "6x6 Bar", "Bar", "Biz", "Baz"].forEach((name) => {
-      newBox.set(name, new Item(name))
+
+    Data.forEach((d, index) => {
+      let name = d.name;
+      if (d.size && d.size !== "-") {
+        name = `${d.size} ${d.name}`
+      }
+
+      let id = `${name}.${index}`
+
+      newBox.set(id, new Item(id, name, d.quantity))
     })
 
     return newBox;
@@ -28,14 +39,14 @@ export default function Home() {
 
   const handleClickItem = (item: Item) => {
     item.count += 1
-    box.set(item.name, item)
+    box.set(item.id, item)
     setBox(new Map(box))
   }
 
   const handleSearchTerm = (term: string) => {
     setSearchTerm(term)
   }
-  
+
   const searchMatches = (item: Item) => {
     if (!searchTerm) {
       return showingAll || item.count > 0
@@ -83,24 +94,24 @@ export default function Home() {
             <div className="flex flex-row h-10 sm:w-1/2">
               <input
                 name="search-input"
-                className="w-full h-full border-2 border-gray-200 outline-none bg-transparent p-1 pl-2 pr-2 rounded-full text-center placeholder-gray-400 focus:placeholder-opacity-0 focus:shadow-lg transition-shadow" 
+                className="w-full h-full border-2 border-gray-200 outline-none bg-transparent p-1 pl-2 pr-2 rounded-full text-center placeholder-gray-400 focus:placeholder-opacity-0 focus:shadow-lg transition-shadow"
                 placeholder="start typing..."
                 value={searchTerm}
                 onChange={e => handleSearchTerm(e.target.value)}
                 ref={searchInput}
-                />
+              />
             </div>
             <div className="flex flex-row w-1/2 text-center m-2">
-              <div 
+              <div
                 className={`w-1/2 cursor-pointer ${showingAll && "underline"}`}
                 onClick={() => handleClickShowingAll(true)}
-                >
+              >
                 All
               </div>
-              <div 
+              <div
                 className={`w-1/2 cursor-pointer ${!showingAll && "underline"}`}
                 onClick={() => handleClickShowingAll(false)}
-                >
+              >
                 Selected
               </div>
             </div>
@@ -112,9 +123,9 @@ export default function Home() {
               }
               return (
                 <div
-                  key={`item-${key}`} 
+                  key={key}
                   onClick={e => handleClickItem(item)}
-                  className="w-1/2 flex flex-row justify-between bg-gray-200 rounded-sm pl-2 pr-2 p-1 mb-3 hover:shadow-md transition-shadow"> 
+                  className="w-1/2 flex flex-row justify-between bg-gray-200 rounded-sm pl-2 pr-2 p-1 mb-3 hover:shadow-md transition-shadow">
                   <p className="text-black">
                     {item.name}
                   </p>
