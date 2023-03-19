@@ -84,14 +84,14 @@ export default function Home() {
       <Head>
         <title>gearbox</title>
         <meta name="description" content="Gearbox for your gear" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable-0" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="bg-gray-300">
-        <div className="flex flex-col w-full h-screen p-3">
-          <div id="search" className="flex flex-col justify-center items-center h-1/6">
-            <div className="flex flex-row h-10 sm:w-1/2">
+        <div className="flex flex-col w-full h-screen p-3 lg:w-1/2">
+          <div id="search" className="p-3 h-1/6 flex flex-col justify-center items-center">
+            <div className="w-full flex flex-row h-10">
               <input
                 name="search-input"
                 className="w-full h-full border-2 border-gray-200 outline-none bg-transparent p-1 pl-2 pr-2 rounded-full text-center placeholder-gray-400 focus:placeholder-opacity-0 focus:shadow-lg transition-shadow"
@@ -103,20 +103,14 @@ export default function Home() {
             </div>
             <div className="flex flex-row w-1/2 text-center m-2">
               <div
-                className={`w-1/2 cursor-pointer ${showingAll && "underline"}`}
-                onClick={() => handleClickShowingAll(true)}
+                className={`flex flex-col w-full cursor-pointer underline justify-center`}
+                onClick={() => handleClickShowingAll(!showingAll)}
               >
-                All
-              </div>
-              <div
-                className={`w-1/2 cursor-pointer ${!showingAll && "underline"}`}
-                onClick={() => handleClickShowingAll(false)}
-              >
-                Selected
+                { showingAll ? "All" : "Selected"}
               </div>
             </div>
           </div>
-          <div id="results" className="h-5/6 p-3 flex flex-col items-center content-center select-none">
+          <div id="results" className="lg:w-1/2 h-5/6 p-3 flex flex-col items-center content-center select-none overflow-y-auto">
             {Array.from(box, ([key, item]) => {
               if (!searchMatches(item)) {
                 return null;
@@ -124,12 +118,16 @@ export default function Home() {
               return (
                 <div
                   key={key}
-                  onClick={e => handleClickItem(item)}
-                  className="w-1/2 flex flex-row justify-between bg-gray-200 rounded-sm pl-2 pr-2 p-1 mb-3 hover:shadow-md transition-shadow">
-                  <p className="text-black">
+                  onClick={e => {
+                    handleClickItem(item)
+                    e.preventDefault()
+                  }}
+                  className="w-full flex flex-row justify-between bg-gray-200 rounded-sm pl-3 pr-2 p-2 mb-3 hover:shadow-md transition-shadow">
+                  <p className="text-black w-5/6 align">
                     {item.name}
                   </p>
-                  <span className="text-black">
+                  <span className="flex flex-col text-black w-1/6 justify-center content-center text-center">
+
                     {item.count}
                   </span>
                 </div>
