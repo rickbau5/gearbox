@@ -12,19 +12,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col bg-blue">
-        <div className={`${styles.header} bg-red-50`}>
-          <div>hello</div>
-        </div>
-        <div className="flex flex-row">
-          <div className={`${styles.sidebar} bg-red-500`}>
-
+      <div className={styles.app}>
+        <main className="flex flex-col h-full bg-blue">
+          <div className={`${styles.header} bg-red-50`}>
+            <div>hello</div>
           </div>
-          <div className="w-full p-3">
-            <ListPage/>
+          <div className={`${styles.rest} flex flex-row`}>
+            <div className={`${styles.sidebar} bg-red-500`}>
+            </div>
+            <div className="flex w-full m-3">
+              <ListPage/>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </>
   )
 }

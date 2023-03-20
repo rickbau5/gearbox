@@ -88,33 +88,36 @@ const ListPage = ({ className }: ListPageProps) => {
 
   return (
     <>
-        <div id="search" className="h-1/6 flex flex-col justify-center items-center">
-        <div className="flex flex-col items-center w-full h-10">
-            <input
-            name="search-input"
-            className="transition-all ease-in-out focus:w-full h-full border-b-2 border-white text-white placeholder-light-blue outline-none bg-transparent p-1 pl-2 pr-2 text-center focus:placeholder-opacity-0"
-            placeholder="start typing..."
-            value={searchTerm}
-            onChange={e => handleSearchTerm(e.target.value)}
-            ref={searchInput}
-            />
+      <div className="flex flex-col w-full">
+        <div id="search" className="items-start mt-10 pb-3 last:pb-0">
+          <div className="h-10">
+              <input
+              name="search-input"
+              className="transition-all ease-in-out border-b-2 border-white focus:border-orange text-white placeholder-light-blue outline-none bg-transparent focus:placeholder-opacity-0"
+              style={{width: "250px"}}
+              placeholder="start typing to search..."
+              value={searchTerm}
+              onChange={e => handleSearchTerm(e.target.value)}
+              ref={searchInput}
+              />
+          </div>
+          <div>
+              <span
+              className="cursor-pointer underline text-orange"
+              onClick={() => handleClickShowingAll(!showingAll)}
+              >
+              { showingAll ? "Showing All" : "Showing Selected"}
+              </span>
+          </div>
         </div>
-        <div className="text-center pt-3">
-            <p
-            className="cursor-pointer underline text-orange"
-            onClick={() => handleClickShowingAll(!showingAll)}
-            >
-            { showingAll ? "Showing All" : "Showing Selected"}
-            </p>
+        <div id="results" className="mt-5 flex flex-col items-center content-center select-none overflow-y-auto rounded-lg">
+          <ItemList
+              items={Array.from(box.values())}
+              displayItem={searchMatches}
+              onClickItem={(item: Item) => { handleClickItem(item); return true }}
+              />
         </div>
-        </div>
-        <div id="results" className="h-5/6 p-3 flex flex-col items-center border-white content-center select-none overflow-y-auto border-2 rounded-lg">
-        <ItemList
-            items={Array.from(box.values())}
-            displayItem={searchMatches}
-            onClickItem={(item: Item) => { handleClickItem(item); return true }}
-            />
-        </div>
+      </div>
     </>
   )
 }

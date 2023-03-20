@@ -1,8 +1,20 @@
+.app {
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0;
+}
+
 .header {
-  height: 50px;
-  width: 100%;
+  flex: 0 1 50px;
+}
+
+.rest {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+  max-height: calc(100% - 50px);
 }
 
 .sidebar {
-  width: 225px;
+  flex: 1 0 225px;
 }
