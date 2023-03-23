@@ -1,22 +1,4 @@
 .app {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  max-height: 100vh;
-  max-height: -webkit-fill-available;
+  height: 100vh;
   margin: 0;
-}
-
-.header {
-  flex: 0 1 50px;
-}
-
-.rest {
-  display: flex;
-  flex-direction: row;
-  flex: 1 1 auto;
-  max-height: calc(100% - 50px);
-}
-
-.sidebar {
-  flex: 1 0 225px;
 }
