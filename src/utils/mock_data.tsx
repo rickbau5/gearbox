@@ -12,14 +12,15 @@ class Item {
   }
 }
 
-const MockData = Data.map((d, index) => {
-  let name = d.name;
-  let id = `${name}.${index}`
-  if (d.size && d.size !== "-") {
-      name = `${d.size} ${d.name}`
-  }
+const MockData = () =>
+  Data.map((d, index) => {
+    let name = d.name;
+    let id = `${name}.${index}`
+    if (d.size && d.size !== "-") {
+        name = `${d.size} ${d.name}`
+    }
 
-  return new Item(id, name, d.quantity)
-})
+    return new Item(id, name, d.quantity)
+  })
 
 export default MockData;

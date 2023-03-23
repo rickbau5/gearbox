@@ -8,7 +8,7 @@ const GearPage = () => {
   return (
     <>
       <Layout pageName="My Gear" className="pr-3 mt-0">
-        <InteractiveItemList data={MockData}>
+        <InteractiveItemList data={MockData()}>
         </InteractiveItemList>
       </Layout>
     </>

@@ -16,7 +16,7 @@ const Build = () => {
                     className=""
                     style={{ maxWidth: "250px" }} />
 
-                <InteractiveItemList data={MockData}>
+                <InteractiveItemList data={MockData()}>
                     <InteractiveItemListSearchBox/>
                 </InteractiveItemList>
             </div>

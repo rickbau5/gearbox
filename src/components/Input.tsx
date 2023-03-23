@@ -1,6 +1,5 @@
 import { forwardRef, LegacyRef, CSSProperties } from "react";
 
-
 interface InputProps {
     name: string,
     className?: string,
